@@ -27,19 +27,20 @@ struct ContentView: View {
                         .foregroundColor(.gray)
                     
                     VStack(alignment: .leading, spacing: 10) {
-                        Text("Webhook Trigger URL:")
+                        Text("Geheimes ntfy Topic (z.B. mein_alarm_99):")
                             .foregroundColor(.gray)
                             .font(.headline)
                         
-                        TextField("https://...", text: $networkMonitor.webhookUrl)
+                        TextField("mein_geheimer_rust_alarm_123", text: $networkMonitor.topic)
                             .textFieldStyle(RoundedBorderTextFieldStyle())
-                            .keyboardType(.URL)
                             .autocapitalization(.none)
+                            .disableAutocorrection(true)
                             .padding(.bottom, 5)
                             
-                        Text("Gib 'test' ein, um zufällige Alarme zu simulieren.")
+                        Text("Trigger über HTTP POST an:\nhttps://ntfy.sh/\(networkMonitor.topic.isEmpty ? "DEIN_TOPIC" : networkMonitor.topic)")
                             .font(.caption)
                             .foregroundColor(.orange)
+                            .multilineTextAlignment(.leading)
                     }
                     .padding(.horizontal)
                     .padding(.top, 20)
@@ -49,7 +50,7 @@ struct ContentView: View {
                     }) {
                         HStack {
                             Image(systemName: networkMonitor.isListening ? "stop.fill" : "play.fill")
-                            Text(networkMonitor.isListening ? "Listening stoppen" : "Alarm aktivieren")
+                            Text(networkMonitor.isListening ? "Listening stoppen" : "Alarm scharfstellen")
                         }
                         .font(.headline)
                         .foregroundColor(.white)
