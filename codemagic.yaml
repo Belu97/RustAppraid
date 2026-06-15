@@ -8,8 +8,14 @@ workflows:
         script: brew install xcodegen
       - name: Generate Xcode Project
         script: xcodegen generate
-      - name: Build iOS app
+      - name: Build iOS app for Device
         script: |
-          xcodebuild clean build -project RustRaidAlarm.xcodeproj -scheme RustRaidAlarm -destination 'generic/platform=iOS Simulator' CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
+          xcodebuild clean build -project RustRaidAlarm.xcodeproj -scheme RustRaidAlarm -destination 'generic/platform=iOS' CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO CONFIGURATION_BUILD_DIR=$PWD/build/Release-iphoneos
+      - name: Package into IPA
+        script: |
+          mkdir -p build/Payload
+          cp -R build/Release-iphoneos/RustRaidAlarm.app build/Payload/
+          cd build
+          zip -qr RustRaidAlarm.ipa Payload
     artifacts:
-      - build/ios/iphonesimulator/*.app
+      - build/RustRaidAlarm.ipa
