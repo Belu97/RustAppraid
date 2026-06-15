@@ -57,7 +57,7 @@ class SirenPlayer {
     
     func playGottlosenSound() {
         do {
-            try AVAudioSession.sharedInstance().setCategory(.playback, mode: .alarm, options: [.duckOthers, .overrideMutedMicrophoneInterruption])
+            try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: [.duckOthers, .overrideMutedMicrophoneInterruption])
             try AVAudioSession.sharedInstance().setActive(true)
         } catch {
             print("Audio Session Error: \(error)")
