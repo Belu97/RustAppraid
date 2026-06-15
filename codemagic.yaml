@@ -1,0 +1,15 @@
+workflows:
+  ios-build:
+    name: iOS Build (XcodeGen)
+    environment:
+      xcode: latest
+    scripts:
+      - name: Install XcodeGen
+        script: brew install xcodegen
+      - name: Generate Xcode Project
+        script: xcodegen generate
+      - name: Build iOS app
+        script: |
+          xcodebuild clean build -project RustRaidAlarm.xcodeproj -scheme RustRaidAlarm -destination 'generic/platform=iOS Simulator' CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
+    artifacts:
+      - build/ios/iphonesimulator/*.app

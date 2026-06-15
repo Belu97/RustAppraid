@@ -1,0 +1,25 @@
+name: RustRaidAlarm
+options:
+  bundleIdPrefix: com.rustraid
+targets:
+  RustRaidAlarm:
+    type: application
+    platform: iOS
+    deploymentTarget: "16.0"
+    sources: [Sources]
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.rustraid.RustRaidAlarm
+        MARKETING_VERSION: "1.0.0"
+        CURRENT_PROJECT_VERSION: "1"
+        SWIFT_VERSION: 5.0
+    info:
+      properties:
+        UIBackgroundModes:
+          - voip
+          - audio
+          - remote-notification
+        UILaunchStoryboardName: LaunchScreen
+        NSAppTransportSecurity:
+          NSAllowsArbitraryLoads: true
+        NSMicrophoneUsageDescription: "Wird für CallKit benötigt."
